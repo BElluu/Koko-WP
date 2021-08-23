@@ -24,9 +24,8 @@
     <span>COPYWRITER</span>
   </div>
 </header>
-
+<div class="line"></div>
 <nav>
-<span class="line"></span>
   <ul>
     <li><a href="#">PORTFOLIO</a></li>
     <li><a href="#">OFERTA</a></li>
@@ -34,6 +33,7 @@
     <li><a href="#">KONTAKT</a></li>
   </ul>
 </nav>
+<div class="line"></div>
 
 <section class="content_area">
 <div class="content_item">
