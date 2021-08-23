@@ -10,6 +10,45 @@
 
  add_action( 'admin_menu', 'copywriter_admin_page' );
 
+ function create_categories_table(){
+     global $wpdb;
+     $tableName = 'copywriter_categories';
+     $wp_track_table = $wpdb->prefix . "$tableName";
+     $charset_collate = $wpdb->get_charset_collate();
+
+     $sql = "CREATE TABLE IF NOT EXISTS $wp_track_table (
+     `category_id` int(11) NOT NULL AUTO_INCREMENT,
+     `name` varchar(256) NOT NULL,
+     `image` LONGBLOB NOT NULL,
+     PRIMARY KEY  (category_id)
+     ) $charset_collate;";
+     require_once(ABSPATH . '/wp-admin/includes/upgrade.php');
+     dbDelta($sql);
+ }
+
+ function create_articles_table(){
+    global $wpdb;
+    $tableName = 'copywriter_articles';
+    $wp_track_table = $wpdb->prefix . "$tableName";
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE IF NOT EXISTS $wp_track_table (
+    `article_id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(256) NOT NULL,
+    `source` varchar(2083) NOT NULL,
+    `text` MEDIUMTEXT,
+    `image` LONGBLOB NOT NULL,
+    `category_id` int(11) NOT NULL,
+    FOREIGN KEY (category_id) REFERENCES wp_copywriter_categories(category_id),
+    PRIMARY KEY  (article_id)
+    ) $charset_collate;";
+    require_once(ABSPATH . '/wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+}
+
+ register_activation_hook( __FILE__, 'create_categories_table' );
+ register_activation_hook( __FILE__, 'create_articles_table' );
+
 function copywriter_admin_page()
  {
      add_menu_page( 'Copywriter', 'Copywriter', 'manage_options', 'copywriter-menu', 'copywriter_category_init', 'dashicons-media-text' );
