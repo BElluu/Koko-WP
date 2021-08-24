@@ -8,6 +8,8 @@
  * Author URI: http://devopsowy.pl
  */
 
+require_once __DIR__ . '\categories-list.php';
+
  add_action( 'admin_menu', 'copywriter_admin_page' );
 
  function create_categories_table(){
@@ -59,8 +61,11 @@ function copywriter_admin_page()
 
 function copywriter_category_init()
  {
+     $Categories_List = new Categories_List();
+
      echo "<h1>Kategorie</h1>";
- }
+     $Categories_List->get_categories();
+}
 
  function copywriter_articles_init()
  {
