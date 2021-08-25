@@ -4,25 +4,27 @@ require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 
 class Categories_List extends WP_List_Table {
 
-    public function __construct() {
+    // public function __construct() {
 
-        parent::__construct( [
-        'singular' => __( 'Kategorie', 'sp' ), //singular name of the listed records
-        'plural' => __( 'Kategorie', 'sp' ), //plural name of the listed records
-        'ajax' => false //should this table support ajax?
+    //     parent::__construct( [
+    //     'singular' => __( 'Kategorie', 'sp' ), //singular name of the listed records
+    //     'plural' => __( 'Kategorie', 'sp' ), //plural name of the listed records
+    //     'ajax' => false //should this table support ajax?
         
-        ] );
+    //     ] );
         
-        }
+        //}
 
     function get_all_categories(){
         global $wpdb;
 
-        $query = $wpdb->get_results("select * from wp_copywriter_categories");
+        $query = $wpdb->get_results("select * from wp_copywriter_categories", ARRAY_A);
     
-        foreach ($query as $rows){
-            echo $rows->name;
-        }
+        // foreach ($query as $rows){
+        //     echo $rows->name;
+        // }
+
+        return $query;
     }
 
     function get_categories($per_page = 10, $page_number = 1)
@@ -41,19 +43,50 @@ class Categories_List extends WP_List_Table {
        $query .= 'OFFSET ' . ($page_number - 1) * $per_page;
 
         echo $query;
+        return $query;
 
        //$result = $wpdb->get_results( $query, 'ARRAY_A' );
     }
 
-        function delete_category($id){
-        global $wpdb;
+    //// NOT MINE!////
 
-        $wpdb->delete(
-            "wp_copywriter_categories",
-            ['category_id' => $id],
-            ['%d']
-        );
+
+
+
+    function prepare_items()
+    {
+        global $wpdb;
+        $columns = $this->get_columns();
+        $hidden = $this->get_hidden_columns();
+        $sortable = $this->get_sortable_columns();
+
+        $data = $this->get_all_categories();
+        usort( $data, array( &$this, 'sort_data' ) );
+
+         $perPage = 5;
+         $currentPage = $this->get_pagenum();
+         $totalItems = count($data);
+
+         $this->set_pagination_args( array(
+             'total_items' => $totalItems,
+             'per_page'    => $perPage
+         ) );
+
+         $data = array_slice($data,(($currentPage-1)*$perPage),$perPage);
+
+        $this->_column_headers = array($columns, $hidden, $sortable);
+        $this->items = $data;
     }
+
+    // function delete_category($id){
+    //     global $wpdb;
+
+    //     $wpdb->delete(
+    //         "wp_copywriter_categories",
+    //         ['category_id' => $id],
+    //         ['%d']
+    //     );
+    // }
 
     function record_count() {
 		global $wpdb;
@@ -68,9 +101,9 @@ class Categories_List extends WP_List_Table {
     _e( 'Brak kategori', 'sp' );
 }
 
-public function column_default( $item, $column_name ) {
+ function column_default( $item, $column_name ) {
     switch ( $column_name ) {
-        case 'category_id':
+        //case 'category_id':
         case 'name':
             return $item[ $column_name ];
         default:
@@ -78,28 +111,87 @@ public function column_default( $item, $column_name ) {
     }
 }
 
-function column_name( $item ) {
+ function column_name( $item ) {
 
-    $delete_nonce = wp_create_nonce( 'sp_delete_customer' );
-
+    $delete_nonce = wp_create_nonce( 'sp_delete_category' );
     $title = '<strong>' . $item['name'] . '</strong>';
 
+
     $actions = [
-        'delete' => sprintf( '<a href="?page=%s&action=%s&customer=%s&_wpnonce=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['ID'] ), $delete_nonce )
+        'delete' => sprintf( '<a href="?page=%s&action=%s&category=%s&_wpnonce=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['category_id'] ), $delete_nonce )
     ];
 
-    return $title . $this->row_actions( $actions );
+        //  global $wpdb;
+
+        // $wpdb->delete(
+        //     "wp_copywriter_categories",
+        //     ['category_id' => $item['category_id']],
+        //     ['%d']
+        // );
+
+    return $title. $this->row_actions( $actions );
 }
 
+function column_cb( $item ) {
+    return sprintf(
+    '<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['category_id']
+    );
+    }
+
 function get_columns() {
-    $columns = [
+    // $columns = [
+    //     'cb'      => '<input type="checkbox" />',
+    //     'ID' => __('column_id', 'sp'),
+    //     'name' => __( 'Nazwa', 'sp' )
+    // ];
+
+    $columns = array(
         'cb'      => '<input type="checkbox" />',
-        'category_id'    => __( 'ID', 'sp' ),
-        'name' => __( 'Nazwa', 'sp' )
-    ];
+        //'category_id' => 'ID',
+        'name' => 'Nazwa'
+    );
 
     return $columns;
 }
+
+function get_hidden_columns()
+{
+    return array();
+}
+
+function get_sortable_columns()
+{
+    return array('name' => array('name', false));
+}
+
+private function sort_data($a, $b)
+{
+    $sorted = 'name';
+    $order = 'asc';
+    global $orderby;
+
+            // If orderby is set, use this as the sort column
+            if(!empty($_GET['orderby']))
+            {
+                $orderby = $_GET['orderby'];
+            }
+    
+            // If order is set use this as the order
+            if(!empty($_GET['order']))
+            {
+                $order = $_GET['order'];
+            }
+    
+    
+            $result = strcmp( $a[$orderby], $b[$orderby] );
+    
+            if($order === 'asc')
+            {
+                return $result;
+            }
+    
+            return -$result;
+    }
 }
 
     ?>

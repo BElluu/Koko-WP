@@ -61,10 +61,20 @@ function copywriter_admin_page()
 
 function copywriter_category_init()
  {
-     $Categories_List = new Categories_List();
+    //  $Categories_List = new Categories_List();
 
-     echo "<h1>Kategorie</h1>";
-     $Categories_List->get_categories();
+    //  echo "<h1>Kategorie</h1>";
+    //  $Categories_List->get_categories();
+
+    $Categories_List = new Categories_List();
+    $Categories_List->prepare_items();
+    ?>
+        <div class="wrap">
+            <div id="icon-users" class="icon32"></div>
+            <h2>Kategorie</h2>
+            <?php $Categories_List->display(); ?>
+        </div>
+    <?php
 }
 
  function copywriter_articles_init()
