@@ -118,6 +118,7 @@ class Categories_List extends WP_List_Table {
 
 
     $actions = [
+        'edit' => sprintf('<a href="?page=%s&action=%s&id=%s">Edit</a>', $_REQUEST['page'], 'edit', $item['category_id']),
         'delete' => sprintf( '<a href="?page=%s&action=%s&category=%s&_wpnonce=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['category_id'] ), $delete_nonce )
     ];
 
@@ -166,9 +167,8 @@ function get_sortable_columns()
 
 private function sort_data($a, $b)
 {
-    $sorted = 'name';
+    $orderby = 'name';
     $order = 'asc';
-    global $orderby;
 
             // If orderby is set, use this as the sort column
             if(!empty($_GET['orderby']))

@@ -9,6 +9,8 @@
  */
 
 require_once __DIR__ . '\categories-list.php';
+require_once __DIR__ . '\category-form.php';
+require_once __DIR__ . '\test-form.php';
 
  add_action( 'admin_menu', 'copywriter_admin_page' );
 
@@ -80,5 +82,9 @@ function copywriter_category_init()
  function copywriter_articles_init()
  {
      echo "<h1>Teksty</h1>";
+    //  $Category_Form = new Category_Form();
+    //  $Category_Form->test();
+    $Test_Form = new Test_Form();
+    $Test_Form->xyz();
  }
  ?>
