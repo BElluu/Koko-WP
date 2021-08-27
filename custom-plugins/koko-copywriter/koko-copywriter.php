@@ -11,6 +11,7 @@
 require_once __DIR__ . '\categories-list.php';
 require_once __DIR__ . '\category-form.php';
 require_once __DIR__ . '\test-form.php';
+require_once __DIR__ . '\add-category.php';
 
  add_action( 'admin_menu', 'copywriter_admin_page' );
 
@@ -58,7 +59,14 @@ function copywriter_admin_page()
      add_menu_page( 'Copywriter', 'Copywriter', 'manage_options', 'copywriter-menu', 'copywriter_category_init', 'dashicons-media-text' );
      add_submenu_page( 'copywriter-menu', 'Teksty', 'Teksty', 'manage_options', 'Teksty', 'copywriter_articles_init' );
      add_submenu_page( 'copywriter-menu', 'Kategorie', 'Kategorie', 'manage_options', 'Kategorie', 'copywriter_category_init' );
+     add_submenu_page( 'Kategorie', 'Dodaj Kategorie', 'Dodaj Kategorie', 'manage_options', 'dodaj-kategorie', 'copywriter_add_category_init' );
      remove_submenu_page( 'copywriter-menu', 'copywriter-menu' );
+ }
+
+ function copywriter_add_category_init()
+ {
+    $Category_Form = new Add_Category_Form();
+    $Category_Form->display();
  }
 
 function copywriter_category_init()
@@ -73,8 +81,11 @@ function copywriter_category_init()
     ?>
         <div class="wrap">
             <div id="icon-users" class="icon32"></div>
-            <h2>Kategorie</h2>
+            <h1 style="display:inline-block;">Kategorie</h1> 
+            <?php echo ' <a href="' . esc_url( admin_url( 'admin.php?page=dodaj-kategorie' ) ) . '" class="page-title-action">' . esc_html( 'Dodaj' ) . '</a>';?>
             <?php $Categories_List->display(); ?>
+
+            <?php submit_button( __( 'Dodaj kategorie', '' ), 'primary', 'Zatwierdź' ); ?>
         </div>
     <?php
 }
@@ -82,8 +93,6 @@ function copywriter_category_init()
  function copywriter_articles_init()
  {
      echo "<h1>Teksty</h1>";
-    //  $Category_Form = new Category_Form();
-    //  $Category_Form->test();
     $Test_Form = new Test_Form();
     $Test_Form->xyz();
  }
