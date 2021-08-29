@@ -66,7 +66,7 @@ function copywriter_admin_page()
  function copywriter_add_category_init()
  {
     $Category_Form = new Add_Category_Form();
-    $Category_Form->display();
+    $Category_Form->addCategory();
  }
 
 function copywriter_category_init()
@@ -93,7 +93,7 @@ function copywriter_category_init()
  function copywriter_articles_init()
  {
      echo "<h1>Teksty</h1>";
-    $Test_Form = new Test_Form();
-    $Test_Form->xyz();
+    $Add_Category_Form2 = new Add_Category_Form2();
+    $Add_Category_Form2->test();
  }
  ?>
