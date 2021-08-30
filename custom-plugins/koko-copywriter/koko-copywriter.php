@@ -12,6 +12,8 @@ require_once __DIR__ . '\categories-list.php';
 require_once __DIR__ . '\category-form.php';
 require_once __DIR__ . '\test-form.php';
 require_once __DIR__ . '\add-category.php';
+require_once __DIR__ . '\articles-list.php';
+require_once __DIR__ . '\add-article.php';
 
  add_action( 'admin_menu', 'copywriter_admin_page' );
 
@@ -41,7 +43,6 @@ require_once __DIR__ . '\add-category.php';
     `article_id` int(11) NOT NULL AUTO_INCREMENT,
     `name` varchar(256) NOT NULL,
     `source` varchar(2083) NOT NULL,
-    `text` MEDIUMTEXT,
     `image` LONGBLOB NOT NULL,
     `category_id` int(11) NOT NULL,
     FOREIGN KEY (category_id) REFERENCES wp_copywriter_categories(category_id),
@@ -57,10 +58,17 @@ require_once __DIR__ . '\add-category.php';
 function copywriter_admin_page()
  {
      add_menu_page( 'Copywriter', 'Copywriter', 'manage_options', 'copywriter-menu', 'copywriter_category_init', 'dashicons-media-text' );
-     add_submenu_page( 'copywriter-menu', 'Teksty', 'Teksty', 'manage_options', 'Teksty', 'copywriter_articles_init' );
+     add_submenu_page( 'copywriter-menu', 'Artykuly', 'Artykuly', 'manage_options', 'Artykuly', 'copywriter_articles_init' );
      add_submenu_page( 'copywriter-menu', 'Kategorie', 'Kategorie', 'manage_options', 'Kategorie', 'copywriter_category_init' );
      add_submenu_page( 'Kategorie', 'Dodaj Kategorie', 'Dodaj Kategorie', 'manage_options', 'dodaj-kategorie', 'copywriter_add_category_init' );
+     add_submenu_page( 'Artykuly', 'Dodaj Artykul', 'Dodaj Artykul', 'manage_options', 'dodaj-artykul', 'copywriter_add_article_init' );
      remove_submenu_page( 'copywriter-menu', 'copywriter-menu' );
+ }
+
+ function copywriter_add_article_init()
+ {
+     $Article_Form = new Add_Article_Form();
+     $Article_Form -> addArticle();
  }
 
  function copywriter_add_category_init()
@@ -92,8 +100,17 @@ function copywriter_category_init()
 
  function copywriter_articles_init()
  {
-     echo "<h1>Teksty</h1>";
-    $Add_Category_Form2 = new Add_Category_Form2();
-    $Add_Category_Form2->test();
+    $Articles_List = new Articles_List();
+    $Articles_List->prepare_items();
+    ?>
+        <div class="wrap">
+            <div id="icon-users" class="icon32"></div>
+            <h1 style="display:inline-block;">Artykuły</h1> 
+            <?php echo ' <a href="' . esc_url( admin_url( 'admin.php?page=dodaj-artykul' ) ) . '" class="page-title-action">' . esc_html( 'Dodaj' ) . '</a>';?>
+            <?php $Articles_List->display(); ?>
+
+            <?php submit_button( __( 'Dodaj Artykuł', '' ), 'primary', 'Zatwierdź' ); ?>
+        </div>
+    <?php
  }
  ?>
