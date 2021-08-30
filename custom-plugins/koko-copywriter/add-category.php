@@ -43,8 +43,8 @@ Class Add_Category_Form {
             global $wpdb;
             $table = 'wp_copywriter_categories';
             $data = array(
-                'name' => $_POST['categoryName'],
-                'image' => $_POST['categoryImage']
+                'category_name' => $_POST['categoryName'],
+                'category_image' => $_POST['categoryImage']
             );
             $format = array(
                 '%s'

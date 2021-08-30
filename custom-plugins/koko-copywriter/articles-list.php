@@ -6,7 +6,7 @@ class Articles_List extends WP_List_Table {
 
     function get_all_articles(){
         global $wpdb;
-        $query = $wpdb->get_results("select * from wp_copywriter_articles", ARRAY_A);
+        $query = $wpdb->get_results("select * from wp_copywriter_articles as articles join wp_copywriter_categories as categories on categories.category_id = articles.category_id", ARRAY_A);
         return $query;
     }
 
@@ -71,9 +71,10 @@ class Articles_List extends WP_List_Table {
 
  function column_default( $item, $column_name ) {
     switch ( $column_name ) {
-        case 'name':
-        case 'source':
-        case 'category_id':
+        case 'article_id':
+        case 'article_name':
+        case 'article_source':
+        case 'category_name':
             return $item[ $column_name ];
         default:
             return print_r( $item, true );
@@ -83,7 +84,7 @@ class Articles_List extends WP_List_Table {
  function column_name( $item ) {
 
     $delete_nonce = wp_create_nonce( 'sp_delete_article' );
-    $title = '<strong>' . $item['name'] . '</strong>';
+    $title = '<strong>' . $item['article_name'] . '</strong>';
 
 
     $actions = [
@@ -103,9 +104,9 @@ function get_columns() {
     global $wpdb;
     $columns = array(
         'cb'      => '<input type="checkbox" />',
-        'name' => 'Nazwa',
-        'source' => 'Źródło',
-        'category_id' => 'Kategoria',
+        'article_name' => 'Nazwa',
+        'article_source' => 'Źródło',
+        'category_name' => 'Kategoria',
     );
     return $columns;
 }
@@ -118,14 +119,15 @@ function get_hidden_columns()
 function get_sortable_columns()
 {
     return array(
-        'name' => array('name', false),
-        'source' => array('source', false)
+        'article_name' => array('article_name', false),
+        'article_source' => array('article_source', false),
+        'category_name' => array('category_name', false)
     );
 }
 
 private function sort_data($a, $b)
 {
-    $orderby = 'name';
+    $orderby = 'article_name';
     $order = 'asc';
 
             // If orderby is set, use this as the sort column

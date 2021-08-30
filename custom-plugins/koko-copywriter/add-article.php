@@ -39,12 +39,12 @@ Class Add_Article_Form {
                                     <option value=""> Wybierz Kategorie </option>
                                     <?php
                                     global $wpdb;
-                                    $categories = $wpdb->get_results("select name from wp_copywriter_categories");
+                                    $categories = $wpdb->get_results("select * from wp_copywriter_categories");
                                     foreach($categories as $row)
                                     {
                                         $category_id = $row->category_id;
-                                        $name = $row->name;
-                                        echo '<option value = ' .$category_id. '>'. $name. '</option>';
+                                        $category_name = $row->category_name;
+                                        echo '<option value = ' .$category_id. '>'. $category_name. '</option>';
                                     }
                                     ?>
                                     </select>
@@ -73,10 +73,10 @@ Class Add_Article_Form {
             global $wpdb;
             $table = 'wp_copywriter_articles';
             $data = array(
-                'name' => $_POST['articleName'],
-                'source' => $_POST['sourceLink'],
+                'article_name' => $_POST['articleName'],
+                'article_source' => $_POST['sourceLink'],
                 'category_id' => $_POST['category'],
-                'image' => $_POST['articleImage']
+                'article_image' => $_POST['articleImage']
             );
             $format = array(
                 '%s'
@@ -93,11 +93,5 @@ Class Add_Article_Form {
             
             }
         } 
-
-        function getCategories(){
-            global $wpdb;
-            $categories =$wpdb->get_results("select name from wp_copywriter_categories");
-            return $categories;
-        }
     }
     ?>

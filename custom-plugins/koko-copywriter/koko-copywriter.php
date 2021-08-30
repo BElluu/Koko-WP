@@ -25,8 +25,8 @@ require_once __DIR__ . '\add-article.php';
 
      $sql = "CREATE TABLE IF NOT EXISTS $wp_track_table (
      `category_id` int(11) NOT NULL AUTO_INCREMENT,
-     `name` varchar(256) NOT NULL,
-     `image` LONGBLOB NOT NULL,
+     `category_name` varchar(256) NOT NULL,
+     `category_image` LONGBLOB NOT NULL,
      PRIMARY KEY  (category_id)
      ) $charset_collate;";
      require_once(ABSPATH . '/wp-admin/includes/upgrade.php');
@@ -41,9 +41,9 @@ require_once __DIR__ . '\add-article.php';
 
     $sql = "CREATE TABLE IF NOT EXISTS $wp_track_table (
     `article_id` int(11) NOT NULL AUTO_INCREMENT,
-    `name` varchar(256) NOT NULL,
-    `source` varchar(2083) NOT NULL,
-    `image` LONGBLOB NOT NULL,
+    `article_name` varchar(256) NOT NULL,
+    `article_source` varchar(2083) NOT NULL,
+    `article_image` LONGBLOB NOT NULL,
     `category_id` int(11) NOT NULL,
     FOREIGN KEY (category_id) REFERENCES wp_copywriter_categories(category_id),
     PRIMARY KEY  (article_id)

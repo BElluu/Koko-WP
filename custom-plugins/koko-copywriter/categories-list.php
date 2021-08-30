@@ -48,11 +48,6 @@ class Categories_List extends WP_List_Table {
        //$result = $wpdb->get_results( $query, 'ARRAY_A' );
     }
 
-    //// NOT MINE!////
-
-
-
-
     function prepare_items()
     {
         global $wpdb;
@@ -104,7 +99,7 @@ class Categories_List extends WP_List_Table {
  function column_default( $item, $column_name ) {
     switch ( $column_name ) {
         //case 'category_id':
-        case 'name':
+        case 'category_name':
             return $item[ $column_name ];
         default:
             return print_r( $item, true ); //Show the whole array for troubleshooting purposes
@@ -114,7 +109,7 @@ class Categories_List extends WP_List_Table {
  function column_name( $item ) {
 
     $delete_nonce = wp_create_nonce( 'sp_delete_category' );
-    $title = '<strong>' . $item['name'] . '</strong>';
+    $title = '<strong>' . $item['category_name'] . '</strong>';
 
 
     $actions = [
@@ -149,7 +144,7 @@ function get_columns() {
     $columns = array(
         'cb'      => '<input type="checkbox" />',
         //'category_id' => 'ID',
-        'name' => 'Nazwa'
+        'category_name' => 'Nazwa'
     );
 
     return $columns;
@@ -162,12 +157,12 @@ function get_hidden_columns()
 
 function get_sortable_columns()
 {
-    return array('name' => array('name', false));
+    return array('category_name' => array('category_name', false));
 }
 
 private function sort_data($a, $b)
 {
-    $orderby = 'name';
+    $orderby = 'category_name';
     $order = 'asc';
 
             // If orderby is set, use this as the sort column
