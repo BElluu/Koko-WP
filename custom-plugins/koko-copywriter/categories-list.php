@@ -144,7 +144,7 @@ function get_columns() {
     $columns = array(
         'cb'      => '<input type="checkbox" />',
         //'category_id' => 'ID',
-        'category_name' => 'Nazwa'
+        'name' => 'Nazwa'
     );
 
     return $columns;

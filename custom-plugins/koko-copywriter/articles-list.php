@@ -104,7 +104,7 @@ function get_columns() {
     global $wpdb;
     $columns = array(
         'cb'      => '<input type="checkbox" />',
-        'article_name' => 'Nazwa',
+        'name' => 'Nazwa',
         'article_source' => 'Źródło',
         'category_name' => 'Kategoria',
     );
