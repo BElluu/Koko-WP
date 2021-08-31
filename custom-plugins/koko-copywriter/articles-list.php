@@ -1,6 +1,7 @@
 <?php
 
 require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+require_once __DIR__ . '\edit-article.php';
 
 class Articles_List extends WP_List_Table {
 
@@ -83,12 +84,13 @@ class Articles_List extends WP_List_Table {
 
  function column_name( $item ) {
 
+    //$ArticleEdit = new Edit_Article_Form();
     $delete_nonce = wp_create_nonce( 'sp_delete_article' );
     $title = '<strong>' . $item['article_name'] . '</strong>';
 
 
     $actions = [
-        'edit' => sprintf('<a href="?page=%s&action=%s&id=%s">Edit</a>', $_REQUEST['page'], 'edit', $item['article_id']),
+        'edit' => sprintf('<a href="?page=%s&id=%s">Edit</a>', 'edytuj-artykul', $item['article_id']),
         'delete' => sprintf( '<a href="?page=%s&action=%s&article=%s&_wpnonce=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['article_id'] ), $delete_nonce )
     ];
     return $title. $this->row_actions( $actions );

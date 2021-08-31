@@ -14,6 +14,7 @@ require_once __DIR__ . '\test-form.php';
 require_once __DIR__ . '\add-category.php';
 require_once __DIR__ . '\articles-list.php';
 require_once __DIR__ . '\add-article.php';
+require_once __DIR__ . '\edit-article.php';
 
  add_action( 'admin_menu', 'copywriter_admin_page' );
 
@@ -62,6 +63,7 @@ function copywriter_admin_page()
      add_submenu_page( 'copywriter-menu', 'Kategorie', 'Kategorie', 'manage_options', 'Kategorie', 'copywriter_category_init' );
      add_submenu_page( 'Kategorie', 'Dodaj Kategorie', 'Dodaj Kategorie', 'manage_options', 'dodaj-kategorie', 'copywriter_add_category_init' );
      add_submenu_page( 'Artykuly', 'Dodaj Artykul', 'Dodaj Artykul', 'manage_options', 'dodaj-artykul', 'copywriter_add_article_init' );
+     add_submenu_page( 'Artykuly', 'Edytuj Artykul', 'Edytuj Artykul', 'manage_options', 'edytuj-artykul', 'copywriter_edit_article_init' );
      remove_submenu_page( 'copywriter-menu', 'copywriter-menu' );
  }
 
@@ -69,6 +71,11 @@ function copywriter_admin_page()
  {
      $Article_Form = new Add_Article_Form();
      $Article_Form -> addArticle();
+ }
+ function copywriter_edit_article_init()
+ {
+     $Article_Form = new Edit_Article_Form();
+     $Article_Form -> editArticle();
  }
 
  function copywriter_add_category_init()
