@@ -11,7 +11,6 @@ Class Edit_Article_Form {
 
     function editArticle(){
         $article = $this->getArticle($_GET['id']);
-        $article_image = $article->article_name;
 ?>
 
 <div class="wrap">
@@ -49,11 +48,13 @@ Class Edit_Article_Form {
                                     <?php
                                     global $wpdb;
                                     $categories = $wpdb->get_results("select * from wp_copywriter_categories");
+                                    $currentCategoryId = $article->category_id;
                                     foreach($categories as $row)
                                     {
                                         $category_id = $row->category_id;
                                         $category_name = $row->category_name;
-                                        echo '<option value = ' .$category_id. '>'. $category_name. '</option>';
+                                        $isCurrent = $currentCategoryId === $category_id ? 'selected' : '';
+                                        echo "<option value = '$category_id' $isCurrent>$category_name</option>";
                                     }
                                     ?>
                                     </select>
@@ -66,7 +67,7 @@ Class Edit_Article_Form {
                         </th>
                             <td>
                                 <input type="file" name="articleImage" id="articleImage" required="required" accept="image/*" />
-                                <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($article->article_name).'" width:"200" alt="test" title="image" />'; ?>
+                                <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($article->article_image).'" width:"200" alt="test" title="image" />'; ?>
                             </td>
                         </tr>
                      </tbody>
@@ -93,7 +94,6 @@ Class Edit_Article_Form {
             );
             $where = ['article_id' => $_GET['id']];
             $success=$wpdb->update( $table, $data, $where);
-            
             }
         } 
     }

@@ -1,7 +1,6 @@
 <?php
 
 require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-require_once __DIR__ . '\edit-article.php';
 
 class Articles_List extends WP_List_Table {
 
@@ -9,27 +8,6 @@ class Articles_List extends WP_List_Table {
         global $wpdb;
         $query = $wpdb->get_results("select * from wp_copywriter_articles as articles join wp_copywriter_categories as categories on categories.category_id = articles.category_id", ARRAY_A);
         return $query;
-    }
-
-    function get_articles($per_page = 10, $page_number = 1)
-    {
-       global $wpdb;
-       
-       $query = "SELECT * FROM wp_copywriter_articles";
-       
-       if (! empty( $_REQUEST['orderby'])) 
-       {
-        $query .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
-        $query .= ! empty ($_REQUEST['order']) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' ASC';
-       }
-
-       $query .= " LIMIT $per_page ";
-       $query .= 'OFFSET ' . ($page_number - 1) * $per_page;
-
-        echo $query;
-        return $query;
-
-       //$result = $wpdb->get_results( $query, 'ARRAY_A' );
     }
 
     function prepare_items()
@@ -83,15 +61,12 @@ class Articles_List extends WP_List_Table {
 }
 
  function column_name( $item ) {
-
-    //$ArticleEdit = new Edit_Article_Form();
     $delete_nonce = wp_create_nonce( 'sp_delete_article' );
     $title = '<strong>' . $item['article_name'] . '</strong>';
-
-
     $actions = [
         'edit' => sprintf('<a href="?page=%s&id=%s">Edit</a>', 'edytuj-artykul', $item['article_id']),
-        'delete' => sprintf( '<a href="?page=%s&action=%s&article=%s&_wpnonce=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['article_id'] ), $delete_nonce )
+        //'delete' => sprintf( '<a href="?page=%s&action=%s&article=%s&_wpnonce=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['article_id'] ), $delete_nonce )
+        'delete' => sprintf('<a href="?page=%s&action=%s&article=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint($item['article_id']))
     ];
     return $title. $this->row_actions( $actions );
 }
@@ -137,23 +112,18 @@ private function sort_data($a, $b)
             {
                 $orderby = $_GET['orderby'];
             }
-    
             // If order is set use this as the order
             if(!empty($_GET['order']))
             {
                 $order = $_GET['order'];
             }
-    
-    
             $result = strcmp( $a[$orderby], $b[$orderby] );
-    
+
             if($order === 'asc')
             {
                 return $result;
             }
-    
             return -$result;
     }
 }
-
-    ?>
+?>

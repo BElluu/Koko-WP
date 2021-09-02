@@ -83,10 +83,6 @@ Class Add_Article_Form {
             );
             $success=$wpdb->insert( $table, $data, $format);
 
-            if(!$success){
-                echo $success;
-            }
-
             // $location = esc_url( admin_url( 'admin.php?page=dodaj-kategorie'));
             // wp_safe_redirect( $location );
             //TODO REDIRECT TO LIST

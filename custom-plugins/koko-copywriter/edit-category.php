@@ -1,12 +1,20 @@
 <?php
-ob_start();
-Class Add_Category_Form2 {   
 
-    function test(){
+Class Edit_Category_Form {   
+
+    function getCategory($id){
+        global $wpdb;
+        $table = 'wp_copywriter_categories';
+        $query = 'select * from ' . $table . " where category_id = " . $id;
+        return $wpdb->get_row($query);
+    }
+
+    function editCategory(){
+        $category = $this->getCategory($_GET['id']);
 ?>
 
 <div class="wrap">
-            <h1><?php _e( 'Dodaj kategorię', '' ); ?></h1>
+            <h1><?php _e( 'Edytuj kategorię', '' ); ?></h1>
         
             <form action="" method="post">
         
@@ -17,7 +25,7 @@ Class Add_Category_Form2 {
                                 <label for="categoryName"><?php _e( 'Nazwa', '' ); ?></label>
                             </th>
                             <td>
-                                <input type="text" name="categoryName" id="categoryName" class="regular-text" placeholder="<?php echo esc_attr( '', '' ); ?>" value="" required="required" />
+                                <input type="text" name="categoryName" id="categoryName" class="regular-text" placeholder="<?php echo esc_attr( '', '' ); ?>" value="<?php echo ($category->category_name);?>" required="required" />
                             </td>
                         </tr>
 
@@ -27,6 +35,7 @@ Class Add_Category_Form2 {
                         </th>
                             <td>
                                 <input type="file" name="categoryImage" id="categoryImage" required="required" accept="image/*" />
+                                <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($category->category_image).'" width:"200" alt="test" title="image" />'; ?>
                             </td>
                         </tr>
                      </tbody>
@@ -43,21 +52,16 @@ Class Add_Category_Form2 {
             global $wpdb;
             $table = 'wp_copywriter_categories';
             $data = array(
-                'name' => $_POST['categoryName'],
-                'image' => $_POST['categoryImage']
+                'category_name' => $_POST['categoryName'],
+                'category_image' => $_POST['categoryImage']
             );
             $format = array(
                 '%s'
             );
-            $success=$wpdb->insert( $table, $data, $format);
-
-            //$redirectLocation = esc_url( admin_url( 'admin.php?page=dodaj-kategorie'));
-            $redirectLocation = 'https://google.pl';
-            wp_safe_redirect( $redirectLocation );
-            exit;
+            $where = ['category_id' => $_GET['id']];
+            $success=$wpdb->update( $table, $data, $where);
+            
             }
         } 
-
     }
-    ob_end_flush(); 
-    ?>
+?>
