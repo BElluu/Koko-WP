@@ -16,7 +16,7 @@ Class Edit_Category_Form {
 <div class="wrap">
             <h1><?php _e( 'Edytuj kategorię', '' ); ?></h1>
         
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
         
                 <table class="form-table">
                     <tbody>
@@ -34,7 +34,7 @@ Class Edit_Category_Form {
                             <label for="categoryImage"><?php _e( 'Zdjęcie', '' ); ?></label>
                         </th>
                             <td>
-                                <input type="file" name="categoryImage" id="categoryImage" required="required" accept="image/*" />
+                                <input type="file" name="categoryImage" id="categoryImage" accept="image/*" />
                                 <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($category->category_image).'" width:"200" alt="test" title="image" />'; ?>
                             </td>
                         </tr>
@@ -51,17 +51,21 @@ Class Edit_Category_Form {
         if (!empty ($_POST)){
             global $wpdb;
             $table = 'wp_copywriter_categories';
+            $where = ['category_id' => $_GET['id']];
+            $imageFile = $_FILES['categoryImage'];
+            if($imageFile['error'] == 0)
+            {
             $data = array(
                 'category_name' => $_POST['categoryName'],
-                'category_image' => $_POST['categoryImage']
+                'category_image' => file_get_contents($imageFile['tmp_name'])
             );
-            $format = array(
-                '%s'
+        }else{
+            $data = array(
+                'category_name' => $_POST['categoryName']
             );
-            $where = ['category_id' => $_GET['id']];
-            $success=$wpdb->update( $table, $data, $where);
-            
             }
+            $success=$wpdb->update( $table, $data, $where);
         } 
     }
+}
 ?>

@@ -8,7 +8,7 @@ Class Add_Article_Form {
 <div class="wrap">
             <h1><?php _e( 'Dodaj artykuł', '' ); ?></h1>
         
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
         
                 <table class="form-table">
                     <tbody>
@@ -71,17 +71,16 @@ Class Add_Article_Form {
 
         if (!empty ($_POST)){
             global $wpdb;
+            $imageFile = $_FILES['articleImage'];
             $table = 'wp_copywriter_articles';
             $data = array(
                 'article_name' => $_POST['articleName'],
                 'article_source' => $_POST['sourceLink'],
                 'category_id' => $_POST['category'],
-                'article_image' => $_POST['articleImage']
+                'article_image' => file_get_contents($imageFile['tmp_name'])
             );
-            $format = array(
-                '%s'
-            );
-            $success=$wpdb->insert( $table, $data, $format);
+            
+            $success=$wpdb->insert( $table, $data);
 
             // $location = esc_url( admin_url( 'admin.php?page=dodaj-kategorie'));
             // wp_safe_redirect( $location );

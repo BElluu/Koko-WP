@@ -8,7 +8,7 @@ Class Add_Category_Form {
 <div class="wrap">
             <h1><?php _e( 'Dodaj kategorię', '' ); ?></h1>
         
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
         
                 <table class="form-table">
                     <tbody>
@@ -41,15 +41,13 @@ Class Add_Category_Form {
 
         if (!empty ($_POST)){
             global $wpdb;
+            $imageFile = $_FILES['categoryImage'];
             $table = 'wp_copywriter_categories';
             $data = array(
                 'category_name' => $_POST['categoryName'],
-                'category_image' => $_POST['categoryImage']
+                'category_image' => file_get_contents($imageFile['tmp_name'])
             );
-            $format = array(
-                '%s'
-            );
-            $success=$wpdb->insert( $table, $data, $format);
+            $success=$wpdb->insert( $table, $data);
 
             // $location = esc_url( admin_url( 'admin.php?page=dodaj-kategorie'));
             // wp_safe_redirect( $location );

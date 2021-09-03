@@ -16,7 +16,7 @@ Class Edit_Article_Form {
 <div class="wrap">
             <h1><?php _e( 'Edytuj artykuł', '' ); ?></h1>
         
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
         
                 <table class="form-table">
                     <tbody>
@@ -66,8 +66,10 @@ Class Edit_Article_Form {
                             <label for="articleImage"><?php _e( 'Zdjęcie', '' ); ?></label>
                         </th>
                             <td>
-                                <input type="file" name="articleImage" id="articleImage" required="required" accept="image/*" />
-                                <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($article->article_image).'" width:"200" alt="test" title="image" />'; ?>
+                                <input type="file" name="articleImage" id="articleImage" accept="image/*" />
+                                <?php
+                                echo '<img src="data:image/jpeg;base64,'.base64_encode($article->article_image).'" width:"200" alt="test" title="image" />';                    
+                               ?>
                             </td>
                         </tr>
                      </tbody>
@@ -82,17 +84,24 @@ Class Edit_Article_Form {
 
         if (!empty ($_POST)){
             global $wpdb;
+            $imageFile = $_FILES['articleImage'];
             $table = 'wp_copywriter_articles';
+            $where = ['article_id' => $_GET['id']];
+            if($imageFile['error'] == 0)
+            {
             $data = array(
                 'article_name' => $_POST['articleName'],
                 'article_source' => $_POST['sourceLink'],
                 'category_id' => $_POST['category'],
-                'article_image' => $_POST['articleImage']
+                'article_image' => file_get_contents($imageFile['tmp_name'])
             );
-            $format = array(
-                '%s'
+        }else{
+            $data = array(
+                'article_name' => $_POST['articleName'],
+                'article_source' => $_POST['sourceLink'],
+                'category_id' => $_POST['category']
             );
-            $where = ['article_id' => $_GET['id']];
+        }
             $success=$wpdb->update( $table, $data, $where);
             }
         } 
