@@ -4,6 +4,15 @@ require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 
 class Articles_List extends WP_List_Table {
 
+    public function __construct() {
+		// Set parent defaults.
+		parent::__construct( array(
+			'singular' => 'article',     // Singular name of the listed records.
+			'plural'   => 'articles',    // Plural name of the listed records.
+			'ajax'     => false,       // Does this table support ajax?
+		) );
+	}
+
     function get_all_articles(){
         global $wpdb;
         $query = $wpdb->get_results("select * from wp_copywriter_articles as articles join wp_copywriter_categories as categories on categories.category_id = articles.category_id", ARRAY_A);
@@ -18,7 +27,7 @@ class Articles_List extends WP_List_Table {
         $sortable = $this->get_sortable_columns();
 
         $data = $this->get_all_articles();
-        usort( $data, array( &$this, 'sort_data' ) );
+        usort( $data, array( $this, 'sort_data' ) );
 
          $perPage = 10;
          $currentPage = $this->get_pagenum();
@@ -61,12 +70,11 @@ class Articles_List extends WP_List_Table {
 }
 
  function column_name( $item ) {
-    $delete_nonce = wp_create_nonce( 'sp_delete_article' );
+    $delete_nonce = wp_create_nonce( 'delete_article' );
     $title = '<strong>' . $item['article_name'] . '</strong>';
     $actions = [
         'edit' => sprintf('<a href="?page=%s&id=%s">Edit</a>', 'edytuj-artykul', $item['article_id']),
-        //'delete' => sprintf( '<a href="?page=%s&action=%s&article=%s&_wpnonce=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['article_id'] ), $delete_nonce )
-        'delete' => sprintf('<a href="?page=%s&action=%s&article=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint($item['article_id']))
+        'delete' => sprintf('<a href="admin.php?action=%s&article_id=%s&_wpnonce=%s">Delete</a>' ,'delete_article', absint($item['article_id']), $delete_nonce)
     ];
     return $title. $this->row_actions( $actions );
 }
@@ -78,7 +86,6 @@ function column_cb( $item ) {
     }
 
 function get_columns() {
-    global $wpdb;
     $columns = array(
         'cb'      => '<input type="checkbox" />',
         'name' => 'Nazwa',
@@ -96,7 +103,7 @@ function get_hidden_columns()
 function get_sortable_columns()
 {
     return array(
-        'article_name' => array('article_name', false),
+        'name' => array('article_name', false),
         'article_source' => array('article_source', false),
         'category_name' => array('category_name', false)
     );

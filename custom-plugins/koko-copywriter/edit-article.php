@@ -103,6 +103,7 @@ Class Edit_Article_Form {
             );
         }
             $success=$wpdb->update( $table, $data, $where);
+            //TODO redirect wp_safe_redirect('admin.php?page=Artykuly');
             }
         } 
     }

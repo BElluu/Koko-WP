@@ -35,16 +35,6 @@ class Categories_List extends WP_List_Table {
         $this->items = $data;
     }
 
-    // function delete_category($id){
-    //     global $wpdb;
-
-    //     $wpdb->delete(
-    //         "wp_copywriter_categories",
-    //         ['category_id' => $id],
-    //         ['%d']
-    //     );
-    // }
-
     function record_count() {
 		global $wpdb;
 		$query = "SELECT COUNT(*) FROM wp_copywriter_categories";
@@ -67,13 +57,11 @@ class Categories_List extends WP_List_Table {
 
  function column_name( $item ) {
 
-    $delete_nonce = wp_create_nonce( 'sp_delete_category' );
+    $delete_nonce = wp_create_nonce( 'delete_category' );
     $title = '<strong>' . $item['category_name'] . '</strong>';
-
-
     $actions = [
         'edit' => sprintf('<a href="?page=%s&id=%s">Edit</a>', 'edytuj-kategorie', $item['category_id']),
-        'delete' => sprintf( '<a href="?page=%s&action=%s&category=%s&_wpnonce=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['category_id'] ), $delete_nonce )
+        'delete' => sprintf('<a href="admin.php?action=%s&category_id=%s&_wpnonce=%s">Delete</a>' ,'delete_category', absint($item['category_id']), $delete_nonce)
     ];
     return $title. $this->row_actions( $actions );
 }
