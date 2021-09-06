@@ -40,7 +40,7 @@ Class Edit_Category_Form {
                         </th>
                             <td>
                                 <input type="file" name="categoryImage" id="categoryImage" accept="image/*" />
-                                <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($category->category_image).'" width:"200" alt="test" title="image" />'; ?>
+                                <?php echo '<img style="max-height:20vh;max-width:20vw;" src="data:image/jpeg;base64,'.base64_encode($category->category_image).'"/>'; ?>
                             </td>
                         </tr>
                      </tbody>

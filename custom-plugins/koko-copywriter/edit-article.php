@@ -73,7 +73,7 @@ Class Edit_Article_Form {
                             <td>
                                 <input type="file" name="articleImage" id="articleImage" accept="image/*" />
                                 <?php
-                                echo '<img src="data:image/jpeg;base64,'.base64_encode($article->article_image).'" width:"200" alt="test" title="image" />';                    
+                                echo '<img style="max-height:20vh;max-width:20vw;" src="data:image/jpeg;base64,'.base64_encode($article->article_image).'"/>';                    
                                ?>
                             </td>
                         </tr>
