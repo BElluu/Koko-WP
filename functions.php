@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 function bkom_register_styles(){
 
     $version = wp_get_theme()->get('Version');

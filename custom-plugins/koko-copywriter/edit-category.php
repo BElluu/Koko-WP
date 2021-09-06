@@ -65,8 +65,8 @@ Class Edit_Category_Form {
             );
             }
             $success=$wpdb->update( $table, $data, $where);
-
-            //TODO redirect wp_safe_redirect('admin.php?page=Kategorie');
+ 
+            wp_safe_redirect('admin.php?page=Kategorie');
         } 
     }
 }
