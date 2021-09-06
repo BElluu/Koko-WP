@@ -1,5 +1,10 @@
 <?php
 
+if (! function_exists('add_action')){
+    echo 'Hi! I\'m a plugin. Do not call me directly.';
+    exit;
+}
+
 require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 
 class Articles_List extends WP_List_Table {

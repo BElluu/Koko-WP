@@ -1,5 +1,10 @@
 <?php
 
+if (! function_exists('add_action')){
+    echo 'Hi! I\'m a plugin. Do not call me directly.';
+    exit;
+}
+
 Class Add_Article_Form {   
 
     function addArticle(){
@@ -35,7 +40,7 @@ Class Add_Article_Form {
                                 <label for="category"><?php _e( 'Kategoria', '' ); ?></label>
                             </th>
                             <td>
-                                <select name='category' id='category' class="select-select2">
+                                <select name='category' id='category' class="select-select2" required="required">
                                     <option value=""> Wybierz Kategorie </option>
                                     <?php
                                     global $wpdb;
@@ -81,11 +86,7 @@ Class Add_Article_Form {
             );
             
             $success=$wpdb->insert( $table, $data);
-
-            // $location = esc_url( admin_url( 'admin.php?page=dodaj-kategorie'));
-            // wp_safe_redirect( $location );
-            //TODO REDIRECT TO LIST
-            
+            wp_safe_redirect('admin.php?page=Artykuly');
             }
         } 
     }

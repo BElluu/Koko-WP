@@ -8,6 +8,11 @@
  * Author URI: http://devopsowy.pl
  */
 
+if (! function_exists('add_action')){
+    echo 'Hi! I\'m a plugin. Do not call me directly.';
+    exit;
+}
+
 require_once __DIR__ . '\categories-list.php';
 require_once __DIR__ . '\add-category.php';
 require_once __DIR__ . '\edit-category.php';

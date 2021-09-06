@@ -1,5 +1,10 @@
 <?php
 
+if (! function_exists('add_action')){
+    echo 'Hi! I\'m a plugin. Do not call me directly.';
+    exit;
+}
+
 Class Add_Category_Form {   
 
     function addCategory(){
@@ -48,11 +53,7 @@ Class Add_Category_Form {
                 'category_image' => file_get_contents($imageFile['tmp_name'])
             );
             $success=$wpdb->insert( $table, $data);
-
-            // $location = esc_url( admin_url( 'admin.php?page=dodaj-kategorie'));
-            // wp_safe_redirect( $location );
-            //TODO REDIRECT TO LIST
-            
+            wp_safe_redirect('admin.php?page=Kategorie');          
             }
         } 
     }

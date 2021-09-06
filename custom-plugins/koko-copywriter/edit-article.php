@@ -1,5 +1,10 @@
 <?php
 
+if (! function_exists('add_action')){
+    echo 'Hi! I\'m a plugin. Do not call me directly.';
+    exit;
+}
+
 Class Edit_Article_Form {   
 
     function getArticle($id){
