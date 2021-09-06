@@ -1,53 +1,17 @@
-<!DOCTYPE html>
-<html lang="en"> 
-<head>
-    <title>Paula Jakubasik Copywriter</title>
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Paula copywriter portfolio">
-    <meta name="author" content="https://devopsowy.pl">    
-    <link rel="shortcut icon" href="images/logo.png"> 
-    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-	<?php
-    wp_head();
-    ?>
-</head> 
-<body>
-
-<header>
-  <div class="headerTitle">
-    <span>PAULA JAKUBASIK</span>
-  </div>
-  <div class="underHeader">
-    <span>COPYWRITER</span>
-  </div>
-</header>
-<div class="line"></div>
-<nav>
-  <ul>
-    <li><a href="#">PORTFOLIO</a></li>
-    <li><a href="#">OFERTA</a></li>
-    <li><a href="#">O MNIE</a></li>
-    <li><a href="#">KONTAKT</a></li>
-  </ul>
-</nav>
-<div class="line"></div>
-
-<section class="content_area">
-<div class="content_item">
-
-</div>
-</section>
-<footer class="footer text-center py-2 theme-bg-dark">
 <?php
-	wp_footer();
-	?>
-  <p class="copyright"><a href="https://devopsowy.pl">Bartłomiej Komendarczuk</a></p>
-		   
-</footer> 
+get_header();
+?>
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus auctor tristique ante ullamcorper tristique. Quisque rhoncus ante id lacus imperdiet, eu molestie urna pulvinar. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed varius condimentum feugiat. Nullam eu efficitur lorem. Quisque a elit a libero posuere posuere eget vitae purus. Duis in purus nec tortor ultrices egestas vitae vel tortor. Proin aliquet libero sed mollis placerat. Sed massa mi, maximus elementum turpis eget, commodo vestibulum augue. Aenean ultricies, est vel lacinia porttitor, dolor mauris porttitor tortor, id volutpat dolor justo vel arcu. Cras a maximus risus. Nam ut elementum metus, vitae mattis ligula. Suspendisse hendrerit, purus vel tempus imperdiet, sem ipsum porta sem, sit amet mollis mi risus vehicula sapien. Ut varius orci urna, non pulvinar lorem tempor vel. Etiam risus nisi, interdum et consequat id, gravida sit amet lectus.
 
-</body>
-</html> 
+Aliquam erat volutpat. Suspendisse gravida magna quis orci tincidunt viverra. Aliquam non dictum justo, porttitor ornare neque. Morbi congue facilisis velit id lacinia. Vestibulum eget ex mattis, consectetur risus non, placerat odio. Etiam luctus et orci quis aliquet. Aenean in molestie libero. Vivamus tellus neque, suscipit et facilisis vel, viverra non tortor. Etiam luctus odio nibh, vitae mollis ante pellentesque vitae. Mauris a dolor sit amet mi lobortis tempor hendrerit in lacus. Nullam facilisis, eros vitae hendrerit vestibulum, neque purus pulvinar urna, a placerat dolor lacus non mi.
 
+Integer laoreet elit id arcu ullamcorper mattis. Fusce congue cursus tortor vel interdum. Ut sit amet elit in elit vehicula pulvinar. Nullam ultricies sit amet nibh eu laoreet. Mauris vulputate volutpat mi vel blandit. Nunc fringilla, metus ut mattis faucibus, eros augue tempus metus, eget placerat lectus lorem sed nulla. Duis risus erat, efficitur eu lorem sed, ullamcorper dapibus tellus. Sed ornare lorem a rhoncus molestie. Nullam gravida vitae velit vel varius. Aenean facilisis finibus tortor in dictum. Mauris auctor urna pretium ultrices vehicula. Vestibulum vel blandit sapien. Aliquam vulputate dolor a lectus elementum volutpat.
+
+Nam tempus vulputate pharetra. Aenean sodales, urna sit amet vulputate rhoncus, enim urna venenatis magna, at varius neque augue id ante. Pellentesque a leo at metus placerat condimentum a eget purus. In posuere dignissim tincidunt. Donec efficitur magna posuere iaculis efficitur. Donec id enim imperdiet, congue ex ac, accumsan nunc. Donec vel ipsum vitae nibh rutrum eleifend non condimentum odio. Etiam venenatis ultricies ligula, et sollicitudin sapien aliquet non. Etiam facilisis orci nec diam consequat facilisis. Integer vestibulum libero id libero ullamcorper eleifend. Sed nec volutpat diam. Vestibulum tortor nunc, dictum nec vulputate in, faucibus in urna. Morbi nec pulvinar libero. Donec quis vehicula tortor. Aliquam eu elit vel arcu bibendum venenatis.
+
+Fusce porttitor pulvinar dapibus. Pellentesque nec molestie purus, molestie scelerisque lectus. Donec varius, neque sed aliquam sollicitudin, velit dolor luctus orci, in ultrices quam eros non elit. Aliquam vitae nulla suscipit, egestas est vitae, imperdiet libero. Donec mollis tortor at sollicitudin laoreet. Nunc blandit, mauris mattis convallis hendrerit, nisi urna faucibus nibh, vel luctus nulla diam sed neque. Suspendisse porta quam nibh, luctus porttitor orci consequat in. Sed dapibus enim et nibh tempor, non tincidunt turpis tempus. Morbi lectus enim, sollicitudin id porta ac, accumsan non metus. Etiam mollis lacinia ante a aliquet. Etiam nulla turpis, mattis vitae condimentum id, sodales sed sem. Praesent purus nunc, auctor in tincidunt in, semper in risus. Morbi mattis ligula ac turpis scelerisque, id malesuada libero eleifend. Donec gravida vulputate fringilla.
+</p>
+<?php
+get_footer();
+?>
