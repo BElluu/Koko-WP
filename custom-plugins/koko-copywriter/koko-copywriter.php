@@ -105,8 +105,6 @@ function copywriter_category_init()
             <h1 style="display:inline-block;">Kategorie</h1> 
             <?php echo ' <a href="' . esc_url( admin_url( 'admin.php?page=dodaj-kategorie' ) ) . '" class="page-title-action">' . esc_html( 'Dodaj' ) . '</a>';?>
             <?php $Categories_List->display(); ?>
-
-            <?php submit_button( __( 'Dodaj kategorie', '' ), 'primary', 'Zatwierdź' ); ?>
         </div>
     <?php
 }
@@ -121,8 +119,6 @@ function copywriter_category_init()
             <h1 style="display:inline-block;">Artykuły</h1> 
             <?php echo ' <a href="' . esc_url( admin_url( 'admin.php?page=dodaj-artykul' ) ) . '" class="page-title-action">' . esc_html( 'Dodaj' ) . '</a>';?>
             <?php $Articles_List->display(); ?>
-
-            <?php submit_button( __( 'Dodaj Artykuł', '' ), 'primary', 'Zatwierdź' ); ?>
         </div>
     <?php
  }

@@ -26,10 +26,10 @@
 <div class="line"></div>
 <nav>
   <ul>
-    <li><a href="#">PORTFOLIO</a></li>
-    <li><a href="#">OFERTA</a></li>
-    <li><a href="#">O MNIE</a></li>
-    <li><a href="#">KONTAKT</a></li>
+    <li><a href="http://localhost/wordpress/">PORTFOLIO</a></li>
+    <li><a href="http://localhost/wordpress/oferta/">OFERTA</a></li>
+    <li><a href="http://localhost/wordpress/o-mnie/">O MNIE</a></li>
+    <li><a href="http://localhost/wordpress/kontakt/">KONTAKT</a></li>
   </ul>
 </nav>
 <div class="line"></div>
