@@ -25,7 +25,7 @@ class Categories_List extends WP_List_Table {
         $data = $this->get_all_categories();
         usort( $data, array( &$this, 'sort_data' ) );
 
-         $perPage = 5;
+         $perPage = 10;
          $currentPage = $this->get_pagenum();
          $totalItems = count($data);
 
