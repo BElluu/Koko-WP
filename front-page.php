@@ -25,8 +25,8 @@ foreach($categories as $row)
 {
 ?>
 <?php echo '<a class="category" target="'.($row-> category_id).'" />'; ?>
-<?php echo '<img class=categoryImage style="height:190px;width:290px;" src="data:image/jpeg;base64,'.base64_encode($row->category_image).'"/>'; ?>
-<?php  echo '<p class=categoryName>'.($row-> category_name).'</p>'?>
+<?php echo '<img class=categoryImage style="height:170px;width:270px;" src="data:image/jpeg;base64,'.base64_encode($row->category_image).'"/>'; ?>
+<?php  echo '<p class=categoryName>'. strtoupper($row-> category_name).'</p>'?>
 </a>
 <?php
 }
@@ -36,7 +36,7 @@ foreach($articles as $row)
 {
 ?>
 <?php echo '<a href="'.($row->article_source).'" class="article" target="'.($row-> category_id).'" />'; ?>
-<?php echo '<img class=articleImage style="height:190px;width:290px;" src="data:image/jpeg;base64,'.base64_encode($row->article_image).'"/>'; ?>
+<?php echo '<img class=articleImage style="height:170px;width:270px;" src="data:image/jpeg;base64,'.base64_encode($row->article_image).'"/>'; ?>
 <?php  echo '<p class=articleName>'.($row-> article_name).'</p>'?>
 </a>
 <?php

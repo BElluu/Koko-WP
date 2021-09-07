@@ -23,6 +23,9 @@
     <span>COPYWRITER</span>
   </div>
 </header>
+<a class="linkedin" href="https://www.linkedin.com/in/paula-jakubasik/">
+<img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-logo.png" width="20px" height="20px"/>
+</a>
 <div class="line"></div>
 <nav>
   <ul>
@@ -33,9 +36,4 @@
   </ul>
 </nav>
 <div class="line"></div>
-
-<section class="content_area">
-<div class="content_item">
-
-</div>
 </section>
